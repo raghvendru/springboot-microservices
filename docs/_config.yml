@@ -1,0 +1,42 @@
+title: Employee Microservices
+description: "Documentation for a Spring Boot + Spring Cloud microservices system — architecture, per-service reference, and setup."
+
+baseurl: "/springboot-microservices"
+url: "https://raghvendru.github.io"
+
+remote_theme: just-the-docs/just-the-docs
+
+color_scheme: dark
+search_enabled: true
+search:
+  heading_level: 2
+  previews: 3
+heading_anchors: true
+
+aux_links:
+  "⭐ GitHub Repo":
+    - "https://github.com/raghvendru/springboot-microservices"
+aux_links_new_tab: true
+
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub"
+gh_edit_repository: "https://github.com/raghvendru/springboot-microservices"
+gh_edit_branch: "main"
+gh_edit_source: docs
+gh_edit_view_mode: "tree"
+
+footer_content: "Copyright &copy; 2026 <a href='https://github.com/raghvendru'>@raghvendru</a>"
+last_edit_timestamp: true
+last_edit_time_format: "%b %e %Y"
+
+nav_sort: case_insensitive
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
