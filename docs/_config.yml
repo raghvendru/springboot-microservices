@@ -6,7 +6,7 @@ url: "https://raghvendru.github.io"
 
 remote_theme: just-the-docs/just-the-docs
 
-color_scheme: dark
+color_scheme: nebula
 search_enabled: true
 search:
   heading_level: 2
