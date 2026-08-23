@@ -1,93 +1,182 @@
-# Employee Microservices Project
+<div align="center">
 
-This project implements a **scalable microservices architecture** for managing Employees, Departments, and Organizations. The system is built using **Spring Boot, Spring Cloud, and other modern technologies**, ensuring **fault tolerance, distributed tracing, and inter-service communication**.
+# 🌱 Employee Microservices
 
-## 🚀 Architecture Overview
-The project consists of multiple microservices communicating with each other using **REST APIs, WebClient, and Spring Cloud OpenFeign**. It is containerized using **Docker** and deployed with **Docker Compose & Docker Networks**.
+**A Spring Boot + Spring Cloud microservices system for managing Employees, Departments, and Organizations.**
 
-### 🏗 Microservices Implemented
-- **Employee Service** – Handles employee-related operations.
-- **Department Service** – Manages department-related functionalities.
-- **Organization Service** – Handles organizational-level operations.
+[![Docs](https://img.shields.io/badge/📖_Read_the_Docs-2563eb?style=for-the-badge)](https://raghvendru.github.io/springboot-microservices/)
+[![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![Spring Cloud](https://img.shields.io/badge/Spring_Cloud-Eureka_·_Gateway-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/projects/spring-cloud)
 
-Each microservice is independently deployable and registered with **Spring Cloud Netflix Eureka Server**.
+[![Stars](https://img.shields.io/github/stars/raghvendru/springboot-microservices?style=flat-square&color=yellow)](https://github.com/raghvendru/springboot-microservices/stargazers)
+[![Forks](https://img.shields.io/github/forks/raghvendru/springboot-microservices?style=flat-square&color=blue)](https://github.com/raghvendru/springboot-microservices/network/members)
+[![Issues](https://img.shields.io/github/issues/raghvendru/springboot-microservices?style=flat-square&color=red)](https://github.com/raghvendru/springboot-microservices/issues)
+[![Last Commit](https://img.shields.io/github/last-commit/raghvendru/springboot-microservices?style=flat-square)](https://github.com/raghvendru/springboot-microservices/commits)
 
-## 🔗 Inter-Service Communication
-The services interact using:
-- **RestTemplate** – Traditional synchronous communication.
-- **WebClient** – Reactive, non-blocking communication.
-- **Spring Cloud OpenFeign** – Declarative REST client.
+[**📖 Documentation**](https://raghvendru.github.io/springboot-microservices/) &nbsp;·&nbsp;
+[**🚀 Quick Start**](#-quick-start) &nbsp;·&nbsp;
+[**🏗️ Architecture**](#️-architecture) &nbsp;·&nbsp;
+[**🔌 API**](#-api-endpoints)
 
-## ⚡ Key Features
-### 🗂 Service Discovery & Load Balancing
-- **Spring Cloud Netflix Eureka** – Service registry for automatic service discovery.
-
-### 🌍 API Gateway
-- **Spring Cloud API Gateway** – Handles routing, authentication, and load balancing.
-
-### ⚙️ Centralized Configuration Management
-- **Spring Cloud Config Server** – Manages configurations centrally, allowing **dynamic updates**.
-
-### 📊 Distributed Tracing & Monitoring
-- **Spring Cloud Sleuth** – Adds trace IDs for monitoring inter-service calls.
-- **Zipkin** – Provides a **UI dashboard** for visualizing trace information.
-
-### 🛡️ Circuit Breaker & Resilience Patterns
-- **Resilience4j** – Implements:
-  - **Circuit Breaking (Open-Close Fallback Mechanism).**
-  - **Retry Pattern** to gracefully handle transient failures.
-
-### 🔄 Version Migration & Upgrades
-- Migrated from **Spring Boot 2.x** to **Spring Boot 3.x**.
-- Addressed compatibility issues and applied best practices.
-
-### 📦 Containerization & Deployment
-- **Dockerized all microservices** for easy deployment.
-- Used **Docker Compose & Docker Networks** for efficient inter-container communication.
-
-### 📩 Event-Driven Architecture with Apache Kafka
-- Implemented **Kafka Producers & Consumers**.
-- Supports **both String & JSON** message formats.
-- Used Kafka topics for **asynchronous** microservices communication.
-
-## 🛠 Tech Stack
-- **Spring Boot** – Framework for building microservices.
-- **Spring Cloud** – Microservices tools (**Eureka, OpenFeign, API Gateway, Config Server, Sleuth, Zipkin, Resilience4j**).
-- **MySQL** – Database for persistent storage.
-- **JUnit 5** – Unit & Integration testing.
-- **Apache Kafka** – Asynchronous messaging system.
-- **Docker & Docker Compose** – Containerization and deployment.
-
-## 🏁 Getting Started
-### 🔧 Prerequisites
-Ensure you have the following installed:
-- **Java 17+**
-- **Docker & Docker Compose**
-- **MySQL**
-- **Kafka** (optional for event-driven messaging)
-
-### 🏃 Running the Services
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/raghvendru/springboot-microservices.git
-   cd springboot-microservices
-   ```
-2. Start the services using Docker Compose:
-   ```bash
-   docker-compose up -d
-   ```
-3. Access the services:
-   - **Eureka Dashboard:** `http://localhost:8761`
-   - **API Gateway:** `http://localhost:8080`
-   - **Zipkin UI:** `http://localhost:9411`
-   
-### 🔍 Testing the APIs
-Use **Postman** or **cURL** to test the API endpoints.
-
-## 📜 Conclusion
-This project **demonstrates a robust microservices architecture** with **fault tolerance, distributed tracing, and event-driven communication**, making it **highly scalable and resilient** for enterprise applications. 🚀
+</div>
 
 ---
-### 📬 Need Help?
-If you encounter any issues, feel free to create an issue in the repository or reach out to me. 😊
 
+## ✨ Overview
+
+Six independently runnable Spring Boot applications. Business services register themselves with
+Eureka, pull their configuration from a Config Server, and are reached through a single gateway.
+
+| | |
+|---|---|
+| 🧭 **Service Discovery** | Eureka registry — services find each other by name, not by host |
+| 🚪 **API Gateway** | Spring Cloud Gateway routing `/api/**` to the right service |
+| ⚙️ **Config Server** | Configuration pulled from a separate Git repository |
+| 🔗 **OpenFeign** | Declarative REST client — Employee Service calls Department Service |
+| 🛡️ **Resilience4j** | Circuit breaker on Employee Service with health indicators |
+| 🐰 **RabbitMQ** | Messaging configuration wired into the business services |
+
+---
+
+## 🗂️ Services
+
+| Service | Application Name | Port | Role |
+|:--------|:-----------------|:-----|:-----|
+| `service-registry` | `SERVICE-REGISTRY` | **8761** | Eureka discovery server — start this first |
+| `config-server` | `CONFIG-SERVER` | **8888** | Serves config from `config-serve-repo` |
+| `api-gateway` | `api-gateway` | **9191** | Routes all client traffic |
+| `employee-service` | `EMPLOYEE-SERVICE` | from config | Employee operations |
+| `department-service` | `DEPARTMENT-SERVICE` | from config | Department operations |
+| `organisation-service` | `ORGANIZATION-SERVICE` | from config | Organization operations |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Java 17 or higher
+- MySQL running locally
+- RabbitMQ running locally
+- No Maven install needed — each service ships with the Maven wrapper
+
+### Run
+
+Each service is a standalone Maven project. Open **six terminals** and start them **in this order**:
+
+```bash
+# 1. Service Registry — must be first
+cd service-registry/service-registry && ./mvnw spring-boot:run
+
+# 2. Config Server
+cd config-server/config-server && ./mvnw spring-boot:run
+
+# 3. Business services
+cd department-service/department-service   && ./mvnw spring-boot:run
+cd employee-service/employee-service       && ./mvnw spring-boot:run
+cd organisation-service/organisation-service && ./mvnw spring-boot:run
+
+# 4. API Gateway — last
+cd api-gateway/api-gateway && ./mvnw spring-boot:run
+```
+
+> On Windows use `mvnw.cmd spring-boot:run` instead of `./mvnw spring-boot:run`.
+
+### Verify
+
+Open the Eureka dashboard at **http://localhost:8761** — all five clients should show as `UP`.
+
+---
+
+## 🏗️ Architecture
+
+```
+                            Client
+                              │
+                              ▼
+                    ┌───────────────────┐
+                    │   API Gateway     │  :9191
+                    └─────────┬─────────┘
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        ▼                     ▼                     ▼
+┌───────────────┐   ┌───────────────┐   ┌────────────────────┐
+│ EMPLOYEE-SVC  │──▶│ DEPARTMENT-SVC│   │ ORGANIZATION-SVC   │
+└───────┬───────┘   └───────┬───────┘   └─────────┬──────────┘
+        │  OpenFeign        │                     │
+        └───────────────────┼─────────────────────┘
+                            ▼
+              ┌──────────────────────────────┐
+              │ Eureka :8761 · Config :8888  │
+              └──────────────────────────────┘
+```
+
+Employee Service reaches Department Service through an OpenFeign client
+(`@FeignClient(name = "DEPARTMENT-SERVICE")`) — resolved via Eureka, never a hard-coded URL.
+
+---
+
+## 🔌 API Endpoints
+
+All requests go through the gateway at `http://localhost:9191`.
+
+| Method | Path | Description |
+|:-------|:-----|:------------|
+| `POST` | `/api/employees` | Create an employee |
+| `GET` | `/api/employees/{id}` | Get an employee (includes their department via Feign) |
+| `POST` | `/api/departments` | Create a department |
+| `GET` | `/api/departments/{department-code}` | Get a department by code |
+| `POST` | `/api/organizations` | Create an organization |
+| `GET` | `/api/organizations/{code}` | Get an organization by code |
+
+---
+
+## 📁 Project Structure
+
+```
+springboot-microservices/
+├── api-gateway/api-gateway/
+├── config-server/config-server/
+├── department-service/department-service/
+├── employee-service/employee-service/
+├── organisation-service/organisation-service/
+├── service-registry/service-registry/
+├── docs/                    # 📖 GitHub Pages documentation site
+└── README.md
+```
+
+---
+
+## 📖 Documentation
+
+Setup, per-service reference, and troubleshooting:
+
+### 👉 **https://raghvendru.github.io/springboot-microservices/**
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Add `docker-compose.yml` and Dockerfiles for one-command startup
+- [ ] Add a parent POM so all modules build together
+- [ ] Add Zipkin for distributed tracing
+- [ ] Add Kafka for event-driven messaging
+- [ ] Integration tests with Testcontainers
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a branch: `git checkout -b feature/my-feature`
+3. Commit: `git commit -m "feat: add my feature"`
+4. Push and open a Pull Request
+
+---
+
+<div align="center">
+
+**Built by [@raghvendru](https://github.com/raghvendru)** — if this helped, a ⭐ goes a long way.
+
+</div>
